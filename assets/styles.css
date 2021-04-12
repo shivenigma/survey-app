@@ -1,4 +1,8 @@
 :root {
+    /* Setting root font size to make calculations easier when using rem */
+    font-size: 62.5%;
+
+    /* CSS variables section */
     --color-primary: #0F56B3;
     --color-primary-variant-1: #C5DCFA;
     --color-secondary: #FFFFFF;
@@ -9,4 +13,8 @@
 body {
     font-family: 'IBM Plex Sans', sans-serif;
     background: var(--color-background);
+
+    /* Reducing font size on root will remove the meaningful sizes set by the browsers for other elements. To reverse the size, Set the body font-size using rem to equalize the effect.
+     */
+    font-size: 1.6rem;
 }
