@@ -1,0 +1,12 @@
+:root {
+    --color-primary: #0F56B3;
+    --color-primary-variant-1: #C5DCFA;
+    --color-secondary: #FFFFFF;
+    --color-background: #F2F8FF;
+    --color-accent: #FBE5C9;
+    --color-text: #000000;
+}
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--color-background);
+}
