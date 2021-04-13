@@ -30,6 +30,7 @@ body {
 button {
     border: none;
 }
+/* Setting this will let the SVG to inherit the fill color from the parent's color property. This is perfect for icons. */
 svg {
     fill: currentColor;
 }
