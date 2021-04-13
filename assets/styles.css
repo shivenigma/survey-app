@@ -10,6 +10,15 @@
     --color-accent: #FBE5C9;
     --color-text: #000000;
 }
+/* This is to avoid having to calculate margin and padding sizes whenever setting dimension for individual elements. */
+* {
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
     font-family: 'IBM Plex Sans', sans-serif;
     background: var(--color-background);
@@ -17,4 +26,60 @@ body {
     /* Reducing font size on root will remove the meaningful sizes set by the browsers for other elements. To reverse the size, Set the body font-size using rem to equalize the effect.
      */
     font-size: 1.6rem;
+}
+button {
+    border: none;
+}
+.container {
+    /* Margin setting was not consistent in the given Figma, so I just eyeballed and used a reasonable spacing. */
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+}
+.nav {
+    font-size: 4.8rem;
+}
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    /*
+    Margin with Magic number till I get confirmation about the margins and spacing consistency from Satwik and Asif
+     */
+    margin: 0 auto 200px auto;
+}
+.welcome > h1 {
+    font-size: 6rem;
+    margin: 5px 0;
+}
+.welcome > p {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 5px 0 20px 0;
+}
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.button {
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px rgba(15, 86, 179, 0.2), 0px 2px 4px rgba(15, 86, 179, 0.2);
+    padding: 12px 16px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.button--primary {
+    background: var(--color-primary);
+    color: var(--color-primary-variant-1);
+}
+.button--secondary {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border: 1px solid #C0C0C0;
 }
