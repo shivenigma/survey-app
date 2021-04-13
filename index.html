@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="preload">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/script.js"></script>
 </head>
 <body>
 <!--We don't really need this container div here and could've set the margins to Body. But it is not unusual for custom widgets to be added or layout changed after the initial designs. So I limit the margins to a container and leave body untouched to be future proof.-->
@@ -24,19 +25,19 @@
             <p>Help us get some insights into the quality of our products</p>
             <button type="button" class="button button--primary button--large">
                 <span>Proceed</span>
-                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none">
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
         </div>
     <div class="question_container">
     </div>
         <nav class="actions">
             <button type="button" class="button button--primary">
-                <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none">
+                <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
                 <span>Back</span>
             </button>
             <button type="button" class="button button--secondary">
                 <span>Next</span>
-                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none">
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
         </nav>
     </div>
