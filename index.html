@@ -22,15 +22,15 @@
 <!--We don't really need this container div here and could've set the margins to Body. But it is not unusual for custom widgets to be added or layout changed after the initial designs. So I limit the margins to a container and leave body untouched to be future proof.-->
     <div class="container">
         <h1 class="nav">FreshFruits</h1>
-        <!--<div class="welcome" id="welcome">
+        <div class="content welcome" id="welcome">
             <h1>Hi! 👋</h1>
             <p>Help us get some insights into the quality of our products</p>
-            <button type="button" class="button button&#45;&#45;primary button&#45;&#45;large">
+            <button type="button" class="button button--primary button--large" onclick="getSurveyData()">
                 <span>Proceed</span>
                 <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
-        </div>-->
-    <!--<div class="survey">
+        </div>
+    <!--<div class="content survey">
         <h2 class="survey__question">Any Comments?</h2>
         <div class="survey__answer survey__answer&#45;&#45;toggle">
             <input type="radio" checked id="great" name="answer" value="great">
@@ -54,13 +54,13 @@
                 <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
         </nav>-->
-        <div class="thanks">
+        <!--<div class="content thanks">
             <div class="thanks__icon">
                 <img src="assets/icons/tick.svg" alt="tick mark">
             </div>
             <h2 class="thanks__title">Thank you!</h2>
             <h3 class="thanks__subtitle">Thanks for helping us improve!</h3>
-        </div>
+        </div>-->
     </div>
 </body>
 </html>
