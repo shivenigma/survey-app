@@ -73,6 +73,10 @@ svg {
     font-size: 4.8rem;
     margin: 0;
 }
+.content {
+    /* To let the element take full available height */
+    flex-grow: 1;
+}
 
 /** Global Styles End **/
 
@@ -82,10 +86,6 @@ svg {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    flex-grow: 1;
-    /*
-    Margin with Magic number till I get confirmation about the margins and spacing consistency from Satwik and Asif
-     */
     margin: 0 auto 200px auto;
 }
 .welcome > h1 {
@@ -100,10 +100,8 @@ svg {
 
 /** Welcome Screens End **/
 
-
 /** Survey screens start **/
 .survey {
-    flex-grow: 1;
     padding-top: 68px;
 }
 .survey__question {
@@ -152,10 +150,6 @@ svg {
     color: var(--color-text);
     box-shadow: 0px 1px 2px rgba(191, 113, 15, 0.2), 0px 2px 4px rgba(191, 113, 15, 0.2);
 }
-.survey__answer--text > textarea, .survey__answer--text > textarea:focus, .survey__answer--text > textarea:active {
-    border: 0.2px solid rgba(158, 158, 158, 1);
-    outline: none;
-}
 .survey__answer--text > textarea {
     /*To force webkit's rendering engine to let us set box shadow for textarea*/
     -webkit-appearance: none;
@@ -163,6 +157,8 @@ svg {
     resize: none;
     padding: 16px;
     font-size: 1.2rem;
+    border: 0.2px solid rgba(158, 158, 158, 1);
+    outline: none;
 }
 .survey__answer--text > textarea::placeholder {
     font-size: 1.2rem;
@@ -178,7 +174,6 @@ svg {
 
 /** Thanks screen starts **/
 .thanks {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
