@@ -20,22 +20,38 @@
 <!--We don't really need this container div here and could've set the margins to Body. But it is not unusual for custom widgets to be added or layout changed after the initial designs. So I limit the margins to a container and leave body untouched to be future proof.-->
     <div class="container">
         <h1 class="nav">FreshFruits</h1>
-        <div class="welcome" id="welcome">
+        <!--<div class="welcome" id="welcome">
             <h1>Hi! 👋</h1>
             <p>Help us get some insights into the quality of our products</p>
-            <button type="button" class="button button--primary button--large">
+            <button type="button" class="button button&#45;&#45;primary button&#45;&#45;large">
                 <span>Proceed</span>
                 <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
+        </div>-->
+    <div class="survey">
+        <h2 class="survey__question">How do you rate the delivery experience?</h2>
+        <div class="survey__answer">
+            <!--TODO: Create styled toggle buttons using these radio buttons-->
+            <span>
+                <input type="radio" name="answer" value="great">
+                Great
+            </span>
+            <span>
+                <input type="radio" name="answer" value="okay">
+                Not So Great
+            </span>
+            <span>
+                <input type="radio" name="answer" value="awful">
+                Awful
+            </span>
         </div>
-    <div class="question_container">
     </div>
         <nav class="actions">
-            <button type="button" class="button button--primary">
+            <button type="button" class="button button--secondary">
                 <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
                 <span>Back</span>
             </button>
-            <button type="button" class="button button--secondary">
+            <button type="button" class="button button--primary">
                 <span>Next</span>
                 <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
