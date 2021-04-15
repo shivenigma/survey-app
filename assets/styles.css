@@ -1,3 +1,4 @@
+/** Global Styles End **/
 :root {
     /* Setting root font size to make calculations easier when using rem */
     font-size: 62.5%;
@@ -72,6 +73,10 @@ svg {
     font-size: 4.8rem;
     margin: 0;
 }
+
+/** Global Styles End **/
+
+/** Welcome screen Start **/
 .welcome {
     display: flex;
     flex-direction: column;
@@ -92,6 +97,11 @@ svg {
     font-weight: 700;
     margin: 5px 0 20px 0;
 }
+
+/** Welcome Screens End **/
+
+
+/** Survey screens start **/
 .survey {
     flex-grow: 1;
     padding-top: 68px;
@@ -164,3 +174,36 @@ svg {
     flex-direction: row;
     justify-content: space-between;
 }
+/** Survey screens End **/
+
+/** Thanks screen starts **/
+.thanks {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.thanks__icon {
+    width: 120px;
+    height: 120px;
+    background: var(--color-secondary);
+    border: 2px solid rgba(192, 192, 192, 1);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.thanks__title {
+    font-size: 3.4rem;
+    font-weight: 600;
+    color: #414141;
+    margin-bottom: 15px;
+}
+.thanks__subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #818181;
+    margin-top: 0;
+}
+/** Thanks screen end **/
