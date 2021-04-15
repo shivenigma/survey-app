@@ -30,20 +30,14 @@
         </div>-->
     <div class="survey">
         <h2 class="survey__question">How do you rate the delivery experience?</h2>
-        <div class="survey__answer">
+        <div class="survey__answer survey__answer--toggle">
             <!--TODO: Create styled toggle buttons using these radio buttons-->
-            <span>
-                <input type="radio" name="answer" value="great">
-                Great
-            </span>
-            <span>
-                <input type="radio" name="answer" value="okay">
-                Not So Great
-            </span>
-            <span>
-                <input type="radio" name="answer" value="awful">
-                Awful
-            </span>
+            <input type="radio" checked id="great" name="answer" value="great">
+            <label for="great">Great</label>
+            <input type="radio" id="okay" name="answer" value="okay">
+            <label for="okay">Not So Great</label>
+            <input type="radio" id="awful" name="answer" value="awful">
+            <label for="awful">Awful</label>
         </div>
     </div>
         <nav class="actions">

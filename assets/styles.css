@@ -31,6 +31,31 @@ body {
 button {
     border: none;
 }
+.button {
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px rgba(15, 86, 179, 0.2), 0px 2px 4px rgba(15, 86, 179, 0.2);
+    min-width: 108px;
+    min-height: 48px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.button--large {
+    min-width: 135px;
+}
+.button--primary {
+    background: var(--color-primary);
+    color: var(--color-primary-variant-1);
+}
+.button--secondary {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border: 1px solid #C0C0C0;
+}
 /* Setting this will let the SVG to inherit the fill color from the parent's color property. This is perfect for icons. */
 svg {
     fill: currentColor;
@@ -75,35 +100,42 @@ svg {
     font-size: 3.4rem;
     font-weight: 600;
 }
+.survey__answer {
+    display: flex;
+    margin-top: 28px;
+}
+.survey__answer--radio {
+    flex-direction: column;
+}
+.survey__answer--radio > label {
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin: 25px 18px;
+}
+.survey__answer--toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 4px;
+    border-radius: 14px;
+    background: var(--color-accent-variant-1);
+}
+.survey__answer--toggle input[type="radio"] {
+    display: none;
+}
+.survey__answer--toggle input[type="radio"] + label {
+    padding: 8px 12px;
+    border-radius: 12px;
+    color: var(--color-accent);
+    cursor: pointer;
+}
+.survey__answer--toggle input[type="radio"]:checked + label {
+    background: var(--color-secondary);
+    color: var(--color-text);
+}
 .actions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-.button {
-    border-radius: 8px;
-    box-shadow: 0px 1px 2px rgba(15, 86, 179, 0.2), 0px 2px 4px rgba(15, 86, 179, 0.2);
-    min-width: 108px;
-    min-height: 48px;
-    font-size: 1.6rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
-.button__icon {
-}
-.button--large {
-    min-width: 135px;
-}
-.button--primary {
-    background: var(--color-primary);
-    color: var(--color-primary-variant-1);
-}
-.button--secondary {
-    background: var(--color-secondary);
-    color: var(--color-primary);
-    border: 1px solid #C0C0C0;
 }
