@@ -24,3 +24,9 @@ function replaceWithInlineSVG(image) {
         image.parentNode.replaceChild(svg, image);
     })
 }
+/** Thinking whether I should create a state machine with the survey data that will also save the current state, that can be used for retaining it with localStorage. */
+function getSurveyData() {
+    fetch('assets/payload.json')
+        .then(response => response.json())
+        .then(data => console.log(data));
+}
