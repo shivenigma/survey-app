@@ -7,7 +7,8 @@
     --color-primary-variant-1: #C5DCFA;
     --color-secondary: #FFFFFF;
     --color-background: #F2F8FF;
-    --color-accent: #FBE5C9;
+    --color-accent: #BF710F;
+    --color-accent-variant-1: #FBE5C9;
     --color-text: #000000;
 }
 /* This is to avoid having to calculate margin and padding sizes whenever setting dimension for individual elements. */
