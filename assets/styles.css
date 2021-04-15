@@ -142,6 +142,23 @@ svg {
     color: var(--color-text);
     box-shadow: 0px 1px 2px rgba(191, 113, 15, 0.2), 0px 2px 4px rgba(191, 113, 15, 0.2);
 }
+.survey__answer--text > textarea, .survey__answer--text > textarea:focus, .survey__answer--text > textarea:active {
+    border: 0.2px solid rgba(158, 158, 158, 1);
+    outline: none;
+}
+.survey__answer--text > textarea {
+    /*To force webkit's rendering engine to let us set box shadow for textarea*/
+    -webkit-appearance: none;
+    box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.08) inset;
+    resize: none;
+    padding: 16px;
+    font-size: 1.2rem;
+}
+.survey__answer--text > textarea::placeholder {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-text);
+}
 .actions {
     display: flex;
     flex-direction: row;
