@@ -32,7 +32,7 @@ function replaceWithInlineSVG(image) {
 function init() {
     container = document.querySelector('.container');
     const welcome = document.getElementById('welcomeTemplate');
-    container.appendChild(welcome.content);
+    container.appendChild(welcome.content.cloneNode(true));
 }
 /** Thinking whether I should create a state machine with the survey data that will also save the current state, that can be used for retaining it with localStorage. */
 function getSurveyData() {
@@ -43,18 +43,91 @@ function getSurveyData() {
             next();
         });
 }
+
+function handleRoutingChange() {
+    const currentQuestion = appState.data[appState.currentStep];
+    let templateId = '';
+    switch (currentQuestion.type) {
+        case 'rating': {
+            templateId = getToggleTemplate(currentQuestion);
+            break;
+        }
+        case 'boolean': {
+            templateId = getRadioTemplate(currentQuestion);
+            break;
+        }
+        default : {
+            templateId = getTextTemplate(currentQuestion);
+            break;
+        }
+    }
+    /*const survey = document.getElementById(templateId); */
+    const actions = document.getElementById('actionsTemplate');
+    /* This is a hack, need to find a better way to replace entire inner content with a template fragment. Note: innerHTML is not rendering the template, need to check why. */
+    container.innerHTML = templateId;
+    //container.appendChild(survey.content.cloneNode(true));
+    container.appendChild(actions.content.cloneNode(true))
+}
+
 function next() {
+    appState.currentStep += 1;
     if (appState.currentStep >= -1 && appState.currentStep < appState.data.length) {
-        appState.currentStep += 1;
-        const survey = document.getElementById('surveyTemplate');
-        console.log(container, container.lastChild);
-        /* This is a hack, need to find a better way to replace entire inner content with a template fragment. Note: innerHTML is not rendering the template, need to check why. */
+        handleRoutingChange();
+    } else {
+        const thanks = document.getElementById('thanksTemplate');
         container.innerHTML = '';
-        container.appendChild(survey.content);
+        container.appendChild(thanks.content.cloneNode(true));
     }
 }
+function getToggleTemplate(question) {
+    if (question?.type !== 'rating') {
+        throw 'Invalid question type';
+    }
+    return `<h1 class="nav">FreshFruits</h1>
+    <div class="content survey">
+        <h2 class="survey__question">${question?.question}</h2>
+        <div class="survey__answer survey__answer--rating">
+            ${question?.options.map((item, i) => `
+                <input type="radio" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.points}">
+                <label for="${item.text+i}">${item.text}</label>
+            `).join('')}
+        </div>
+    </div>`;
+}
+function getRadioTemplate(question) {
+    if (question?.type !== 'boolean') {
+        throw 'Invalid question type';
+    }
+    return `<h1 class="nav">FreshFruits</h1>
+    <div class="content survey">
+        <h2 class="survey__question">${question?.question}</h2>
+        <div class="survey__answer survey__answer--boolean">
+            ${question?.options.map((item, i) => `
+                <input type="radio" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.points}">
+                <label for="${item.text+i}">${item.text}</label>
+            `).join('')}
+        </div>
+    </div>`;
+}
+function getTextTemplate(question) {
+    if (question?.type !== 'text') {
+        throw 'Invalid question type';
+    }
+    return `<h1 class="nav">FreshFruits</h1>
+        <div class="content survey">
+            <h2 class="survey__question">${question?.question}</h2>
+            <div class="survey__answer survey__answer--text">
+                <textarea name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here"></textarea>
+            </div>
+        </div>`
+}
 function back() {
+    appState.currentStep -= 1;
     if (appState.currentStep > -1) {
-        appState.currentStep -= 1;
+        handleRoutingChange();
+    } else {
+        const welcome = document.getElementById('welcomeTemplate');
+        container.innerHTML = '';
+        container.appendChild(welcome.content.cloneNode(true));
     }
 }

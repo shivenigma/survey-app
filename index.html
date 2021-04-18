@@ -19,11 +19,11 @@
     <script src="assets/script.js"></script>
 </head>
 <body onload="init()">
-<!--We don't really need this container div here and could've set the margins to Body. But it is not unusual for custom widgets to be added or layout changed after the initial designs. So I limit the margins to a container and leave body untouched to be future proof.-->
     <div class="container">
-        <h1 class="nav">FreshFruits</h1>
     </div>
+    <!--These are static templates and don't need DOM manipulations, so left them this way. I'm inclined towards using a single style of doing templates. So these might as well get moved to template literals.-->
     <template id="welcomeTemplate">
+        <h1 class="nav">FreshFruits</h1>
         <div class="content welcome">
             <h1>Hi! 👋</h1>
             <p>Help us get some insights into the quality of our products</p>
@@ -33,33 +33,20 @@
             </button>
         </div>
     </template>
-    <template id="surveyTemplate">
-        <div class="content survey">
-            <h2 class="survey__question">Any Comments?</h2>
-            <div class="survey__answer survey__answer--toggle">
-                <input type="radio" checked id="great" name="answer" value="great">
-                <label for="great">Great</label>
-                <input type="radio" id="okay" name="answer" value="okay">
-                <label for="okay">Not So Great</label>
-                <input type="radio" id="awful" name="answer" value="awful">
-                <label for="awful">Awful</label>
-            </div>
-            <div class="survey__answer survey__answer--text">
-                <textarea name="comments" id="comments" cols="70" rows="8" placeholder="Add your comments here"></textarea>
-            </div>
-        </div>
+    <template id="actionsTemplate">
         <nav class="actions"  id="actions">
-            <button type="button" class="button button--secondary">
+            <button type="button" class="button button--secondary" onclick="back()">
                 <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
                 <span>Back</span>
             </button>
-            <button type="button" class="button button--primary">
+            <button type="button" class="button button--primary" onclick="next()">
                 <span>Next</span>
                 <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
             </button>
         </nav>
     </template>
     <template id="thanksTemplate">
+        <h1 class="nav">FreshFruits</h1>
         <div class="content thanks" id="thanks">
             <div class="thanks__icon">
                 <img src="assets/icons/tick.svg" alt="tick mark">
