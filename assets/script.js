@@ -1,3 +1,8 @@
+const appState = {
+    currentStep: -1,
+    data: [],
+}
+let container;
 function replaceWithInlineSVG(image) {
     fetch(image.src).then(function(response) {
         return response.text();
@@ -24,9 +29,32 @@ function replaceWithInlineSVG(image) {
         image.parentNode.replaceChild(svg, image);
     })
 }
+function init() {
+    container = document.querySelector('.container');
+    const welcome = document.getElementById('welcomeTemplate');
+    container.appendChild(welcome.content);
+}
 /** Thinking whether I should create a state machine with the survey data that will also save the current state, that can be used for retaining it with localStorage. */
 function getSurveyData() {
     fetch('assets/payload.json')
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+            appState.data = data.questions;
+            next();
+        });
+}
+function next() {
+    if (appState.currentStep >= -1 && appState.currentStep < appState.data.length) {
+        appState.currentStep += 1;
+        const survey = document.getElementById('surveyTemplate');
+        console.log(container, container.lastChild);
+        /* This is a hack, need to find a better way to replace entire inner content with a template fragment. Note: innerHTML is not rendering the template, need to check why. */
+        container.innerHTML = '';
+        container.appendChild(survey.content);
+    }
+}
+function back() {
+    if (appState.currentStep > -1) {
+        appState.currentStep -= 1;
+    }
 }
