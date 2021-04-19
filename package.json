@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "surveying customers for quality of service",
   "main": "index.html",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "jasmine": "^3.7.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

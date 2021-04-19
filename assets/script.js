@@ -1,3 +1,9 @@
+/*TODO: Need to refactor to use ES6 module based approach to be able to write tests better.
+
+   Right now loaded the file using async and eval. It is not working as I want it to and it is dangerous to eval for security (may not be exactly true in this case). I should've anticipated this but I've neither wrote any unit tests outside of Angular nor used ES6 modules. I thought I can pull this app without going through creating modules since it is simple, but here we are.
+
+*/
+
 let appState = {
     currentStep: -1,
     data: [],
