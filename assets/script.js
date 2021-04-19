@@ -88,6 +88,8 @@ function next() {
         const thanks = document.getElementById('thanksTemplate');
         container.innerHTML = '';
         container.appendChild(thanks.content.cloneNode(true));
+        /* TODO: Post collected data to a mock API endpoint here*/
+        console.log(appState);
         clearState();
     }
 }
