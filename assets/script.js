@@ -45,7 +45,14 @@ function getSurveyData() {
     fetch('assets/payload.json')
         .then(response => response.json())
         .then(data => {
-            appState.data = data.questions;
+            appState.data = data.questions.map(item => {
+                if (item.type === 'rating' || item.type === 'boolean'){
+                    item.selectedValue = item.options[0].value;
+                } else {
+                    item.selectedValue = '';
+                }
+                return item;
+            });
             next();
         });
 }
@@ -74,13 +81,14 @@ function handleRoutingChange() {
 
 function next() {
     appState.currentStep += 1;
+    saveState();
     if (appState.currentStep >= -1 && appState.currentStep < appState.data.length) {
         handleRoutingChange();
     } else {
         const thanks = document.getElementById('thanksTemplate');
         container.innerHTML = '';
         container.appendChild(thanks.content.cloneNode(true));
-        localStorage.removeItem('savedState');
+        clearState();
     }
 }
 function back() {
@@ -93,9 +101,27 @@ function back() {
         container.appendChild(welcome.content.cloneNode(true));
     }
 }
+function saveState() {
+    localStorage.setItem('savedState', JSON.stringify(appState));
+}
+function clearState() {
+    localStorage.removeItem('savedState');
+}
 function updateValueAndState(value){
     appState.data[appState.currentStep].selectedValue = value;
-    localStorage.setItem('savedState', JSON.stringify(appState));
+}
+function updateBooleanValueAndState(value) {
+    /*This conversion is ugly but there is no way to get true or false as a true boolean from HTML attributes, because they are considered and returned as strings. I used a adapter method for the conversion and passing the data into the regular data handling for boolean type template.*/
+    let bool = value;
+    if (value && typeof value === "string") {
+        if (value.toLowerCase() === "true"){
+            bool = true;
+        }
+        if (value.toLowerCase() === "false") {
+            bool = false;
+        }
+    }
+    updateValueAndState(bool);
 }
 function getToggleTemplate(question) {
     if (question?.type !== 'rating') {
@@ -106,7 +132,7 @@ function getToggleTemplate(question) {
         <h2 class="survey__question">${question?.question}</h2>
         <div class="survey__answer survey__answer--rating">
             ${question?.options.map((item, i) => `
-                <input type="radio" id="${item.text+i}" name="${question?.question}" onchange="updateValueAndState(this.value)" ${i === 0 ? 'checked' : ''} value="${item.value}">
+                <input type="radio" id="${item.text+i}" name="${question?.question}" onchange="updateValueAndState(this.value)" ${question?.selectedValue === item.value ? 'checked' : ''} value="${item.value}">
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
@@ -121,7 +147,7 @@ function getRadioTemplate(question) {
         <h2 class="survey__question">${question?.question}</h2>
         <div class="survey__answer survey__answer--boolean">
             ${question?.options.map((item, i) => `
-                <input type="radio" onchange="updateValueAndState(this.value)" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.value}">
+                <input type="radio" onchange="updateBooleanValueAndState(this.value)" id="${item.text+i}" name="${question?.question}" ${question?.selectedValue == item.value ? 'checked' : ''} value="${item.value}">
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
@@ -135,7 +161,7 @@ function getTextTemplate(question) {
         <div class="content survey">
             <h2 class="survey__question">${question?.question}</h2>
             <div class="survey__answer survey__answer--text">
-                <textarea onblur="updateValueAndState(this.value)" name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here"></textarea>
+                <textarea onblur="updateValueAndState(this.value)" name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here">${question?.selectedValue}</textarea>
             </div>
         </div>`
 }
