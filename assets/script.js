@@ -88,7 +88,7 @@ function getToggleTemplate(question) {
         <h2 class="survey__question">${question?.question}</h2>
         <div class="survey__answer survey__answer--rating">
             ${question?.options.map((item, i) => `
-                <input type="radio" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.points}">
+                <input type="radio" id="${item.text+i}" name="${question?.question}" onchange="updateValueAndState(this.value)" ${i === 0 ? 'checked' : ''} value="${item.value}">
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
@@ -103,7 +103,7 @@ function getRadioTemplate(question) {
         <h2 class="survey__question">${question?.question}</h2>
         <div class="survey__answer survey__answer--boolean">
             ${question?.options.map((item, i) => `
-                <input type="radio" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.points}">
+                <input type="radio" onchange="updateValueAndState(this.value)" id="${item.text+i}" name="${question?.question}" ${i === 0 ? 'checked' : ''} value="${item.value}">
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
