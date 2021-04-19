@@ -246,9 +246,37 @@ Media queries can become really hard and filled with nuances especially when usi
     }
 }
 
-/* Landscape phone to portrait tablet */
+/* portrait tablet*/
 @media (max-width: 767px) {
     .survey__answer--text > textarea {
         width: 100%;
+    }
+}
+
+/* Landscape mobiles and tablets */
+@media (max-width: 830px) and (orientation: landscape) {
+    :root {
+        font-size: 50%;
+    }
+    .container {
+        padding: 20px;
+    }
+    .welcome {
+        margin: 0 auto;
+    }
+    .survey {
+        padding-top: 10px;
+    }
+    .survey__question {
+        font-size: 2rem;
+    }
+    .survey__answer {
+        margin-top: 8px;
+    }
+    .survey__answer--boolean label {
+        padding: 15px 10px 15px 45px;
+    }
+    .survey__answer--text > textarea {
+        width: 75%;
     }
 }
