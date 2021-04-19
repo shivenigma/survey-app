@@ -202,3 +202,53 @@ svg {
     margin-top: 0;
 }
 /** Thanks screen end **/
+
+/** Responsive design media queries start **/
+
+/**
+Media queries can become really hard and filled with nuances especially when using min and max-width. I don't have an iphone or a high end phone to test the design. I'm sure the pixes ration difference on high end phones might make this design look bad, but it will be usable, without any elements hidden from the viewport.
+
+ There is no one fit for all and it will be really hard to target all different devices with this approach.  I would start with mobile first approach if the site is to be responsive. It is easier to let things take available space on larger screens. But the given design was for desktop. So I designed desktop first and now changing for smaller screens.
+
+ This list is not exhaustive and can only be considered as a decent starting point in desktop-first approach. I did not designed anything for wearable devices or foldable devices yet. My understanding of designing for them is limited.
+
+ The content of the app is very simple, so I am able to a decent look with very less media targets and changes. This mostly depends on the app and some apps might need a lot of work on media queries when we want to shift things around and prefer different layout on different screens.
+ **/
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    .nav {
+        font-size: 3.8rem;
+    }
+    .welcome {
+        margin: unset;
+    }
+    .welcome > h1 {
+        font-size: 5rem;
+    }
+    .survey__question {
+        font-size: 2.5rem;
+    }
+    .survey__answer {
+        margin-top: 15px;
+    }
+    .survey__answer--rating input[type="radio"] + label {
+        padding: 8px 10px;
+        font-size: 1.5rem;
+    }
+    .survey__answer--boolean label {
+        padding: 15px 10px 15px 45px;
+    }
+    .thanks__subtitle {
+        font-size: 1.8rem;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .survey__answer--text > textarea {
+        width: 100%;
+    }
+}
