@@ -1,4 +1,4 @@
-const appState = {
+let appState = {
     currentStep: -1,
     data: [],
 }
@@ -30,9 +30,15 @@ function replaceWithInlineSVG(image) {
     })
 }
 function init() {
+    const savedState = localStorage.getItem('savedState');
     container = document.querySelector('.container');
+    if(savedState) {
+        appState = JSON.parse(savedState);
+        handleRoutingChange();
+    } else {
     const welcome = document.getElementById('welcomeTemplate');
     container.appendChild(welcome.content.cloneNode(true));
+    }
 }
 /** Thinking whether I should create a state machine with the survey data that will also save the current state, that can be used for retaining it with localStorage. */
 function getSurveyData() {
@@ -61,11 +67,8 @@ function handleRoutingChange() {
             break;
         }
     }
-    /*const survey = document.getElementById(templateId); */
     const actions = document.getElementById('actionsTemplate');
-    /* This is a hack, need to find a better way to replace entire inner content with a template fragment. Note: innerHTML is not rendering the template, need to check why. */
     container.innerHTML = templateId;
-    //container.appendChild(survey.content.cloneNode(true));
     container.appendChild(actions.content.cloneNode(true))
 }
 
@@ -77,7 +80,22 @@ function next() {
         const thanks = document.getElementById('thanksTemplate');
         container.innerHTML = '';
         container.appendChild(thanks.content.cloneNode(true));
+        localStorage.removeItem('savedState');
     }
+}
+function back() {
+    appState.currentStep -= 1;
+    if (appState.currentStep > -1) {
+        handleRoutingChange();
+    } else {
+        const welcome = document.getElementById('welcomeTemplate');
+        container.innerHTML = '';
+        container.appendChild(welcome.content.cloneNode(true));
+    }
+}
+function updateValueAndState(value){
+    appState.data[appState.currentStep].selectedValue = value;
+    localStorage.setItem('savedState', JSON.stringify(appState));
 }
 function getToggleTemplate(question) {
     if (question?.type !== 'rating') {
@@ -117,17 +135,7 @@ function getTextTemplate(question) {
         <div class="content survey">
             <h2 class="survey__question">${question?.question}</h2>
             <div class="survey__answer survey__answer--text">
-                <textarea name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here"></textarea>
+                <textarea onblur="updateValueAndState(this.value)" name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here"></textarea>
             </div>
         </div>`
-}
-function back() {
-    appState.currentStep -= 1;
-    if (appState.currentStep > -1) {
-        handleRoutingChange();
-    } else {
-        const welcome = document.getElementById('welcomeTemplate');
-        container.innerHTML = '';
-        container.appendChild(welcome.content.cloneNode(true));
-    }
 }
