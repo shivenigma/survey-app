@@ -55,7 +55,6 @@ function next() {
         container.innerHTML = thanks;
         /* TODO: Post collected data to a mock API endpoint here*/
         console.log(appState);
-        clearState();
     }
 }
 function back() {
