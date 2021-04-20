@@ -21,18 +21,6 @@
 <body onload="init()">
     <div class="container">
     </div>
-    <!--These are static templates and don't need DOM manipulations, so left them this way. I'm inclined towards using a single style of doing templates. So these might as well get moved to template literals.-->
-    <template id="welcomeTemplate">
-        <h1 class="nav">FreshFruits</h1>
-        <div class="content welcome">
-            <h1>Hi! 👋</h1>
-            <p>Help us get some insights into the quality of our products</p>
-            <button type="button" class="button button--primary button--large" onclick="getSurveyData()">
-                <span>Proceed</span>
-                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
-            </button>
-        </div>
-    </template>
     <template id="actionsTemplate">
         <nav class="actions"  id="actions">
             <button type="button" class="button button--secondary" onclick="back()">

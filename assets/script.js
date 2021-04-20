@@ -1,9 +1,3 @@
-/*TODO: Need to refactor to use ES6 module based approach to be able to write tests better.
-
-   Right now loaded the file using async and eval. It is not working as I want it to and it is dangerous to eval for security (may not be exactly true in this case). I should've anticipated this but I've neither wrote any unit tests outside of Angular nor used ES6 modules. I thought I can pull this app without going through creating modules since it is simple, but here we are.
-
-*/
-
 let appState = {
     currentStep: -1,
     data: [],
@@ -13,7 +7,7 @@ function replaceWithInlineSVG(image) {
     fetch(image.src).then(function(response) {
         return response.text();
     }).then(function(response){
-            const parser = new DOMParser();
+        const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response, "text/xml");
         // Get the SVG tag, ignore the rest
         let svg = xmlDoc.getElementsByTagName('svg')[0];
@@ -36,17 +30,16 @@ function replaceWithInlineSVG(image) {
     })
 }
 function init() {
-    const savedState = localStorage.getItem('savedState');
+    const savedState = getState();
     container = document.querySelector('.container');
     if(savedState) {
         appState = JSON.parse(savedState);
         handleRoutingChange();
     } else {
-    const welcome = document.getElementById('welcomeTemplate');
-    container.appendChild(welcome.content.cloneNode(true));
+    const welcome = getWelcomeTemplate();
+    container.innerHTML = welcome;
     }
 }
-/** Thinking whether I should create a state machine with the survey data that will also save the current state, that can be used for retaining it with localStorage. */
 function getSurveyData() {
     fetch('assets/payload.json')
         .then(response => response.json())
@@ -104,10 +97,12 @@ function back() {
     if (appState.currentStep > -1) {
         handleRoutingChange();
     } else {
-        const welcome = document.getElementById('welcomeTemplate');
-        container.innerHTML = '';
-        container.appendChild(welcome.content.cloneNode(true));
+        const welcome = getWelcomeTemplate();
+        container.innerHTML = welcome;
     }
+}
+function getState() {
+    return localStorage.getItem('savedState');
 }
 function saveState() {
     localStorage.setItem('savedState', JSON.stringify(appState));
@@ -130,6 +125,18 @@ function updateBooleanValueAndState(value) {
         }
     }
     updateValueAndState(bool);
+}
+function getWelcomeTemplate() {
+    return `
+    <h1 class="nav">FreshFruits</h1>
+        <div class="content welcome">
+            <h1>Hi! 👋</h1>
+            <p>Help us get some insights into the quality of our products</p>
+            <button type="button" class="button button--primary button--large" onclick="getSurveyData()">
+                <span>Proceed</span>
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+            </button>
+        </div>`
 }
 function getToggleTemplate(question) {
     if (question?.type !== 'rating') {
