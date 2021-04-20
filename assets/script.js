@@ -82,9 +82,8 @@ function next() {
     if (appState.currentStep >= -1 && appState.currentStep < appState.data.length) {
         handleRoutingChange();
     } else {
-        const thanks = document.getElementById('thanksTemplate');
-        container.innerHTML = '';
-        container.appendChild(thanks.content.cloneNode(true));
+        const thanks = getThanksTemplate();
+        container.innerHTML = thanks;
         /* TODO: Post collected data to a mock API endpoint here*/
         console.log(appState);
         clearState();
@@ -149,7 +148,8 @@ function getToggleTemplate(question) {
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
-    </div>`;
+    </div>
+    ${getActionTemplate()}`;
 }
 function getRadioTemplate(question) {
     if (question?.type !== 'boolean') {
@@ -164,7 +164,8 @@ function getRadioTemplate(question) {
                 <label for="${item.text+i}">${item.text}</label>
             `).join('')}
         </div>
-    </div>`;
+    </div>
+    ${getActionTemplate()}`;
 }
 function getTextTemplate(question) {
     if (question?.type !== 'text') {
@@ -176,5 +177,28 @@ function getTextTemplate(question) {
             <div class="survey__answer survey__answer--text">
                 <textarea onblur="updateValueAndState(this.value)" name="comments" id="comments1" cols="70" rows="8" placeholder="Add your comments here">${question?.selectedValue}</textarea>
             </div>
-        </div>`
+        </div>
+        ${getActionTemplate()}`
+}
+function getActionTemplate() {
+    return `<nav class="actions"  id="actions">
+            <button type="button" class="button button--secondary" onclick="back()">
+                <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+                <span>Back</span>
+            </button>
+            <button type="button" class="button button--primary" onclick="next()">
+                <span>Next</span>
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+            </button>
+        </nav>`
+}
+function getThanksTemplate() {
+    return `<h1 class="nav">FreshFruits</h1>
+        <div class="content thanks" id="thanks">
+            <div class="thanks__icon">
+                <img src="assets/icons/tick.svg" alt="tick mark">
+            </div>
+            <h2 class="thanks__title">Thank you!</h2>
+            <h3 class="thanks__subtitle">Thanks for helping us improve!</h3>
+        </div>`;
 }
