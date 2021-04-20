@@ -42,7 +42,7 @@ class State {
         state.questions[index].selectedValue = value;
         this.setState(state);
     }
-    updateBooleanValueAndState(value) {
+    updateBooleanValueAndState(value, index) {
         /*This conversion is ugly but there is no way to get true or false as an actual boolean from HTML attributes. They are considered and returned as strings from HTML. I used a adapter method for the conversion and passing the data into the regular data handling for boolean type template.*/
         let bool = value;
         if (value && typeof value === "string") {
@@ -53,7 +53,7 @@ class State {
                 bool = false;
             }
         }
-        this.updateValueAndState(bool);
+        this.updateValueAndState(bool, index);
     }
 }
 export {State}
