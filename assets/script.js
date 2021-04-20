@@ -1,36 +1,35 @@
+import {Router} from "../modules/router.js";
+import {replaceWithInlineSVG} from "../modules/inlineSVG.js";
+
+const router = new Router();
+router.add('thanks', (params) => {
+    console.log(params);
+    getThanksTemplate();
+    container = document.querySelector('.container');
+    container.innerHTML = getThanksTemplate();
+    updateIcons();
+});
+router.add('question/:id', (args) => {
+    console.log(args);
+    updateIcons();
+})
+router.add('', () => {
+    const welcome = getWelcomeTemplate();
+    container = document.querySelector('.container');
+    container.innerHTML = welcome;
+    container.querySelector('#proceed-button').addEventListener('click', () =>{
+        router.navigate('/question/1');
+    });
+    updateIcons();
+});
+router.listen();
 let appState = {
     currentStep: -1,
     data: [],
 }
 let container;
-function replaceWithInlineSVG(image) {
-    fetch(image.src).then(function(response) {
-        return response.text();
-    }).then(function(response){
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(response, "text/xml");
-        // Get the SVG tag, ignore the rest
-        let svg = xmlDoc.getElementsByTagName('svg')[0];
-        // Add replaced image's ID to the new SVG
-        if(typeof image.id !== 'undefined') {
-            svg.setAttribute('id', image.id);
-        }
-        // Add replaced image's classes to the new SVG
-        if(typeof image.className !== 'undefined') {
-            svg.setAttribute('class', image.className);
-        }
-        // Remove any invalid XML tags as per http://validator.w3.org
-        svg.removeAttribute('xmlns:a');
-        // if the viewport is not set the SVG wont't scale.
-        if(!svg.getAttribute('viewBox') && svg.getAttribute('height') && svg.getAttribute('width')) {
-            svg.setAttribute('viewBox', '0 0 ' + svg.getAttribute('height') + ' ' + svg.getAttribute('width'))
-        }
-        // Replace image with the generated SVG
-        image.parentNode.replaceChild(svg, image);
-    })
-}
 function init() {
-    const savedState = getState();
+    /*const savedState = getState();
     container = document.querySelector('.container');
     if(savedState) {
         appState = JSON.parse(savedState);
@@ -38,7 +37,7 @@ function init() {
     } else {
     const welcome = getWelcomeTemplate();
     container.innerHTML = welcome;
-    }
+    }*/
 }
 function getSurveyData() {
     fetch('assets/payload.json')
@@ -55,7 +54,6 @@ function getSurveyData() {
             next();
         });
 }
-
 function handleRoutingChange() {
     const currentQuestion = appState.data[appState.currentStep];
     let template = '';
@@ -75,7 +73,6 @@ function handleRoutingChange() {
     }
     container.innerHTML = template;
 }
-
 function next() {
     appState.currentStep += 1;
     saveState();
@@ -129,9 +126,9 @@ function getWelcomeTemplate() {
         <div class="content welcome">
             <h1>Hi! 👋</h1>
             <p>Help us get some insights into the quality of our products</p>
-            <button type="button" class="button button--primary button--large" onclick="getSurveyData()">
+            <button type="button" class="button button--primary button--large" id="proceed-button">
                 <span>Proceed</span>
-                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" data-replace-svg>
             </button>
         </div>`
 }
@@ -183,12 +180,12 @@ function getTextTemplate(question) {
 function getActionTemplate() {
     return `<nav class="actions"  id="actions">
             <button type="button" class="button button--secondary" onclick="back()">
-                <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+                <img class="button__icon" src="assets/icons/arrow-left.svg" alt="arrow right" role="none" data-replace-svg>
                 <span>Back</span>
             </button>
             <button type="button" class="button button--primary" onclick="next()">
                 <span>Next</span>
-                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" onload="replaceWithInlineSVG(this)">
+                <img class="button__icon" src="assets/icons/arrow-right.svg" alt="arrow right" role="none" data-replace-svg>
             </button>
         </nav>`
 }
@@ -201,4 +198,11 @@ function getThanksTemplate() {
             <h2 class="thanks__title">Thank you!</h2>
             <h3 class="thanks__subtitle">Thanks for helping us improve!</h3>
         </div>`;
+}
+function updateIcons() {
+    // Should use obesrver patter to notify routing change to the outside world from the user, that will make a lot of things easier and consumers of router can just subscribe to that change and do their thing. For now calling this directly from the route callbacks.
+
+    document.querySelectorAll('img[data-replace-svg]').forEach(elem => {
+        replaceWithInlineSVG(elem);
+    })
 }
