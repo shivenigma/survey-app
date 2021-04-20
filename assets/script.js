@@ -58,24 +58,22 @@ function getSurveyData() {
 
 function handleRoutingChange() {
     const currentQuestion = appState.data[appState.currentStep];
-    let templateId = '';
+    let template = '';
     switch (currentQuestion.type) {
         case 'rating': {
-            templateId = getToggleTemplate(currentQuestion);
+            template = getToggleTemplate(currentQuestion);
             break;
         }
         case 'boolean': {
-            templateId = getRadioTemplate(currentQuestion);
+            template = getRadioTemplate(currentQuestion);
             break;
         }
         default : {
-            templateId = getTextTemplate(currentQuestion);
+            template = getTextTemplate(currentQuestion);
             break;
         }
     }
-    const actions = document.getElementById('actionsTemplate');
-    container.innerHTML = templateId;
-    container.appendChild(actions.content.cloneNode(true))
+    container.innerHTML = template;
 }
 
 function next() {
