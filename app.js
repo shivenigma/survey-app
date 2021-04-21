@@ -1,7 +1,7 @@
-import {Router} from "../modules/router.js";
-import {replaceWithInlineSVG} from "../modules/inlineSVG.js";
-import {State} from "../modules/state.js";
-import * as templates from "../modules/templates.js";
+import {Router} from "./modules/router.js";
+import {replaceWithInlineSVG} from "./modules/inlineSVG.js";
+import {State} from "./modules/state.js";
+import * as templates from "./modules/templates.js";
 
 const router = new Router();
 const stateHandler = new State();
