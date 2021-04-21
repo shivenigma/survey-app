@@ -21,9 +21,7 @@ describe("FreshFruits test", function (){
        expect(appState.data.length).toBe(0);
        expect(appState.currentStep).toBe(-1);
     });
-    it('should be defined', function () {
-        expect(replaceWithInlineSVG).toBeDefined();
-    });
+
     it('should load welcome page if no saved state', function () {
         const getState = spyOn(window, 'getState').and.callFake(function () {
             return null;
@@ -63,21 +61,6 @@ describe("Freshfruits async test", function () {
             done();
         }, 4000);
     });
-    it('should replace image with SVG', function (done) {
-        const elem = document.createElement('div');
-        const image = document.createElement('img');
-        image.setAttribute('src', 'assets/icons/arrow-left.svg');
-        image.setAttribute('onload', replaceWithInlineSVG(image));
-        image.classList.add('TestClassPassthrough');
-        elem.appendChild(image);
-        expect(replaceWithInlineSVG).toHaveBeenCalledWith(image);
-        // The replace function has an async call which is not exposed outside, or need not te be exposed. So we wait for some delay for the async call to finish and check the result.
-        setTimeout(function (){
-            expect(elem.children[0].nodeName).toBe('svg');
-            expect(elem.children[0].classList).toContain('TestClassPassthrough');
-            done();
-        }, 200);
-    })
 });
 const customMatchers = {
     toBeValidState: function () {

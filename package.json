@@ -1,0 +1,22 @@
+{
+  "name": "freshfruits",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitvignesh:shivenigma/survey-app.git"
+  },
+  "author": "Vignesh.M <ms.vignesh31@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^3.7.0",
+    "karma": "^6.3.2",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^4.0.1"
+  },
+  "dependencies": {}
+}
