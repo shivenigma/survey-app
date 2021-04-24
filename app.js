@@ -20,14 +20,14 @@ router.add('', () => {
     stateHandler.init();
     container.innerHTML = templates.getWelcomeTemplate();
     container.querySelector('#proceed-button').addEventListener('click', () =>{
-        router.navigate('/question/1');
+        router.navigate('/question/0');
     });
     updateIcons();
 });
 router.listen();
 function handleQuestionsRoute(param) {
     const appState = stateHandler.getState();
-    const currentQuestion = appState.questions[param.id - 1];
+    const currentQuestion = appState.questions[param.id];
     let template = '';
     switch (currentQuestion.type) {
         case 'rating': {
@@ -72,7 +72,7 @@ function handleQuestionsRoute(param) {
 }
 function next(params) {
     const state = stateHandler.getState();
-    if( params.id < state.questions.length) {
+    if( params.id < state.questions.length - 1) {
         router.navigate(`/question/${Number(params.id) + 1}`);
     } else {
         router.navigate('thanks');
