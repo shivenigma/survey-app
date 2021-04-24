@@ -8,12 +8,15 @@ const stateHandler = new State();
 const container = document.querySelector('.container');
 
 router.add('thanks', (params) => {
-    container.innerHTML = templates.getThanksTemplate();
-    updateIcons();
-    stateHandler.clearState();
-    setTimeout(() => {
+    const savedState = stateHandler.getState();
+    if (stateHandler.getProgressState() === true) {
+        container.innerHTML = templates.getThanksTemplate();
+        updateIcons();
+        // submit the data here
+        stateHandler.flush();
+    } else {
         router.navigate('welcome');
-    }, 500);
+    }
 });
 router.add('question/:id', handleQuestionsRoute)
 router.add('', () => {
@@ -67,7 +70,8 @@ function handleQuestionsRoute(param) {
     })
     container.querySelector('#nextButton').addEventListener('click', () => {
         next(param);
-    })
+    });
+    stateHandler.setProgressState(true);
     updateIcons();
 }
 function next(params) {
@@ -79,7 +83,6 @@ function next(params) {
     }
 }
 function back(params) {
-    const state = stateHandler.getState();
     if( params.id > 0) {
         router.navigate(`/question/${Number(params.id) - 1}`);
     } else {
@@ -87,7 +90,15 @@ function back(params) {
     }
 }
 function updateIcons() {
-    // Should use observer pattern to notify routing change to the outside world from the user, that will make a lot of things easier and consumers of router can just subscribe to that change and do their thing. For now calling this directly from the route callbacks.
+    /*
+    Here we use observer pattern to notify routing change to the outside code and other modules.
+    That will make a lot of things easier and consumers of router can just subscribe to that change and do their action.
+
+    For this use case, I think that might be a over-engineered solution. For now calling this directly from the route callbacks.
+
+    This is also a great use case for introducing before and after hooks in the router and call this function in the after hook.
+     */
+
     document.querySelectorAll('img[data-replace-svg]').forEach(elem => {
         replaceWithInlineSVG(elem);
     })

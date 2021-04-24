@@ -1,7 +1,14 @@
 class State {
     state = null;
+    inProgress;
     constructor() {
         this.init();
+    }
+    getProgressState() {
+        return this.inProgress;
+    }
+    setProgressState(state) {
+        this.inProgress = state;
     }
     init() {
         if(!this.getState()) {
@@ -33,8 +40,9 @@ class State {
         this.state = state;
         localStorage.setItem('savedState', JSON.stringify(this.state));
     }
-    clearState() {
+    flush() {
         this.setState(null);
+        this.setProgressState(null);
         localStorage.removeItem('savedState');
     }
     updateValueAndState(value, index){
