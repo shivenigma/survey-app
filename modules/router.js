@@ -1,6 +1,5 @@
 class Router {
     routes = [];
-    root = '/';
     interval = null;
     add(route, callback) {
         if (typeof callback !== 'function') {
@@ -63,16 +62,17 @@ class Router {
         }
     }
     listen() {
+        /*This could've been handled better if we control the server and able to use the History API.
+        History API will fire events that we can subscribe to instead of constantly polling like this.*/
         let current;
         const watch = () => {
-            console.log('watching');
             if(current !== this.getRouteFragment()) {
                 current = this.getRouteFragment();
                 this.check(current);
             }
         }
         clearInterval(this.interval);
-        this.interval = setInterval(watch, 2000);
+        this.interval = setInterval(watch, 100);
         return this;
     }
     navigate(path = '') {
@@ -84,7 +84,6 @@ class Router {
             clearInterval(this.interval);
         }
         this.routes = [];
-        this.root = '/';
     }
 }
 export {Router};
