@@ -6,21 +6,28 @@ class Router {
             throw 'Callback should be a function';
         }
         this.routes.push({route, callback});
-        // can probably return this here to enable method chaining to add multiple routes
+        // can probably return this here to enable method chaining to add multiple routes easily, or we can accept an array of routes as argument for this function.
     }
     getRouteFragment() {
         /**
-         * Ideally I would be using the History API in JS, but the issue is for history API to work properly we need to redirect all requests to index.html in server configuration, ex., .htaccess for Apache.
+         * Ideally I would be using the History API in JS, but for history API to work properly we need to redirect all requests to index.html in server configuration, ex., .htaccess for Apache.
          *
-         * I'm not sure about the server this will be hosted. So for now, using the hash based approach that works without any server dependency.
+         * I'm not sure about where this will be hosted. So for now, using the hash based approach that works without any server dependency.
          */
-        const hash = location.hash.replace('#', '');
+        const hash = this.getHash().replace('#', '');
         return this.clearSlashes(hash);
     }
+    // makes mocking location properties easier without any hacks
+    getHash() {
+        return location.hash;
+    }
+
     clearSlashes (path) {
         // to remove slash from beginning and end of the given string. Used to remove slashed from the URL fragment.
         return path.toString().replace(/^\/|\/$/g, '');
     }
+
+    /*I noticed that this router might fail in some cases where the string have partial match like /hello and /helloworld. Both will match hello fragment. It is not a problem for this app, but could be part of a larger implementation problem. Should think of a different solution.*/
     check(fragment) {
         for(let i=0; i < this.routes.length; i++) {
             /*This method is to collect the parameters name from the route definition and later assign the values to them and pass to the callback*/
@@ -66,14 +73,16 @@ class Router {
         History API will fire events that we can subscribe to instead of constantly polling like this.*/
         let current;
         const watch = () => {
+            console.log('here 1');
             if(current !== this.getRouteFragment()) {
+                console.log('here2');
                 current = this.getRouteFragment();
                 this.check(current);
+                console.log('here3');
             }
         }
         clearInterval(this.interval);
         this.interval = setInterval(watch, 100);
-        return this;
     }
     navigate(path = '') {
         path = path ? path : '';
