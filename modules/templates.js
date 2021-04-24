@@ -10,7 +10,7 @@ function getWelcomeTemplate() {
         </div>`
 }
 function getToggleTemplate(question) {
-    if (question?.type !== 'rating') {
+    if (question?.type !== 'rating' || !question?.options ||question?.options?.length <= 0) {
         throw 'Invalid question type';
     }
     return `${getHeadingTemplate()}
@@ -26,7 +26,7 @@ function getToggleTemplate(question) {
     ${getActionTemplate()}`;
 }
 function getRadioTemplate(question) {
-    if (question?.type !== 'boolean') {
+    if (question?.type !== 'boolean' || !question?.options ||question?.options?.length <= 0) {
         throw 'Invalid question type';
     }
     return `${getHeadingTemplate()}

@@ -45,6 +45,7 @@ function handleQuestionsRoute(param) {
             break;
         }
         case 'boolean': {
+            // TODO: Handle errors from the template method
             template = templates.getRadioTemplate(currentQuestion);
             container.innerHTML = template;
             container.querySelectorAll('.survey__answer--boolean > input')
