@@ -9,6 +9,14 @@
 ### Validation
 - I ignored adding any input validation rule because there is only one text box. It felt unusual to add validation to a survey comment field. That is better to be optional. Other fields have default value and need not to be validated.
 
+### On Refresh
+- When the user refreshes the page, the requirement said to redirect to the previous question. But I chose to keep them in the same screen they were and to just restore the saved state.
+
+- Using a router, it is easier to load the current page on reload than redirecting them to the prev screen.
+
+### Submitting to a real endpoint.
+- I did not mock or send the data to a real endpoint because that is not going to be validated or looked into anyway.
+
 ### Browser Support
 - App only works in browsers which have full support for ES6 modules and features. It is not hard to include babel and a build process to enable support for older browsers. But I purposefully made the choice of supporting only modern browsers because this is not a prod app.
 
