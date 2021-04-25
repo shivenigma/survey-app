@@ -73,12 +73,9 @@ class Router {
         History API will fire events that we can subscribe to instead of constantly polling like this.*/
         let current;
         const watch = () => {
-            console.log('here 1');
             if(current !== this.getRouteFragment()) {
-                console.log('here2');
                 current = this.getRouteFragment();
                 this.check(current);
-                console.log('here3');
             }
         }
         clearInterval(this.interval);

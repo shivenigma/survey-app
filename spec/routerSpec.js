@@ -36,11 +36,17 @@ describe("Router tests", function () {
     });
     it('should listen for route changes periodically', function () {
         jasmine.clock().install();
-        const checkSpy = jasmine.createSpy(router, 'check').and.callThrough();
+        const checkSpy = spyOn(router, 'check').and.returnValue('');
         router.listen();
+        // first change in the route
         this.getHashSpy.and.returnValue('#/testroute');
-        // jasmine.clock().tick(100);
+        jasmine.clock().tick(100);
+        expect(this.getHashSpy).toHaveBeenCalled();
         expect(checkSpy).toHaveBeenCalled();
+        // next change in route with params
+        this.getHashSpy.and.returnValue('#/question/2');
+        jasmine.clock().tick(100);
+        expect(checkSpy).toHaveBeenCalledWith('question/2');
         jasmine.clock().uninstall();
     });
 });
