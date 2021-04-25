@@ -8,11 +8,12 @@ const stateHandler = new State();
 const container = document.querySelector('.container');
 
 router.add('thanks', (params) => {
-    const savedState = stateHandler.getState();
     if (stateHandler.getProgressState() === true) {
+        const state = stateHandler.getState();
         container.innerHTML = templates.getThanksTemplate();
         updateIcons();
-        // submit the data here
+        // We should handle the promise returned from the remote call, if real endpoint is implemented.
+        submitData(state);
         stateHandler.flush();
     } else {
         router.navigate('welcome');
@@ -103,4 +104,7 @@ function updateIcons() {
     document.querySelectorAll('img[data-replace-svg]').forEach(elem => {
         replaceWithInlineSVG(elem);
     })
+}
+function submitData(state) {
+    // we can submit to a server from here using fetch or XMLHttpRequest.
 }
