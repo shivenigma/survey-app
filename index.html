@@ -8,11 +8,17 @@
     <title>FreshFruits</title>
     <!--Used a single favicon for simplicity. In real apps, favicons are far more nuanced and would required different formats and sizes of files that should be created and linked here.-->
     <link rel="icon" href="favicon.ico">
-<!--    Loading fonts has more nuances than we usually think about. In the below link the fonts are configured with two best practices.
-    1. Load only the font weights and styles you need, This should save precious milliseconds to the browser downloading the fonts.
-    2. rel preload is used to tell the browser that this font file has to be downloaded as soon as possible. Browser can't ignore this preload attribute, it is mandatory. That said, we should not preload everything, Then the browser won't have a chance to optimize the loading pipeline.
+    <!--Use Preconnect to open sockets to any 3rd party domains you use further in the code.
+    But use preconnect sparingly. This will open and maintain a socket to that domain which is a costly operation. don't preconnect to more than 3-5 domains.
+    You can use dns-prefetch for non-critical resources.-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
-    More Info: https://3perf.com/blog/link-rels/-->
+    <!--    Loading fonts has more nuances than we usually think about. In the below link the fonts are configured with two best practices.
+        1. Load only the font weights and styles you need, This should save precious milliseconds to the browser downloading the fonts.
+        2. rel preload is used to tell the browser that this font file has to be downloaded as soon as possible. Browser can't ignore this preload attribute, it is mandatory. That said, we should not preload everything, Then the browser won't have a chance to optimize the loading pipeline.
+
+        More Info: https://3perf.com/blog/link-rels/-->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="preload" as="font">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="assets/styles.css">
