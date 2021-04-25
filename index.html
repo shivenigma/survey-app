@@ -19,8 +19,12 @@
     <script type="module" src="app.js"></script>
     <!--Trying to prefetch the SVG assets that are loaded dynamically into DOM.
     Having the browser download them once the DOM is loaded is not always a pleasant UX.
-    This will tell the browser that we'll use this asset in future but it is upto the browser to decide whether to download it or not. Firefox only prefetches when the browser is Idle.
-    Nevertheless, this is useful to reduce the flickering effect of image loading in dynamic DOM.-->
+    This will tell the browser that we'll use this asset in future.
+
+    But it is upto the browser to decide whether to download it or not.
+    Firefox only prefetches when the browser is Idle. Nevertheless, this is useful to reduce the flickering effect of image loading in dynamic DOM.
+   Browser can decide not to prefetch the asset if the user is on a slow or a mobile connection. We hand the control to the browser to do best when we are using prefetch.
+    -->
     <link rel="prefetch" href="assets/icons/arrow-left.svg">
     <link rel="prefetch" href="assets/icons/arrow-right.svg">
     <link rel="prefetch" href="assets/icons/radio-checked.svg">
