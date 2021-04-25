@@ -14,6 +14,6 @@ describe("Image to SVG", function (){
             expect(elem.children[0].nodeName).toBe('svg');
             expect(elem.children[0].classList).toContain('TestClassPassthrough');
             done();
-        }, 200);
-    })
+        }, 1000);
+    });
 });
