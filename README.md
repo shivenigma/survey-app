@@ -45,7 +45,7 @@ npx karma start
 
 Everything is a trade-off might sound cliche, but it is true. In this app the trade-offs are between simplicity, shorter feedback loop, performance, browser support, dev-time.
 
-There are some places where I've cut corners because But for the scope and use of this app, they are overkill. I might make a different choice on these things if this application is going to be used in a prod environment.
+There are some places where I've cut corners because, for the scope and use of this app, they are overkill. I might make a different choice on these things if this application is going to be used in a prod environment.
 
 - Ignored a build process to be able to develop quickly. I work in a large Angular app and builds take a lot of time, I like to keep off them unless we really need them.
 - Ignored code minification because this is not a real app and automating it would need a build process.
